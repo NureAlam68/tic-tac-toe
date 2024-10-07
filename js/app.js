@@ -65,6 +65,8 @@ const showWinner = (winner) => {
 
 
 const checkWinner = () => {
+    let isDraw = true;
+
     for (let pattern of winPatterns) {
         let pos1Value = boxes[pattern[0]].innerText;
         let pos2Value = boxes[pattern[1]].innerText;
@@ -72,10 +74,21 @@ const checkWinner = () => {
 
         if (pos1Value != "" && pos2Value != "" && pos3Value != "") {
             if (pos1Value === pos2Value && pos2Value === pos3Value) {
-                console.log("win", pos1Value);
+                // console.log("win", pos1Value);
                 showWinner(pos1Value);
             }
         }
+    }
+
+    boxes.forEach((box) => {
+        if (box.innerText === "") {
+            isDraw = false;
+        }
+    });
+
+    if (isDraw) {
+        msg.innerText = "Match Draw!";
+        msgContainer.classList.remove("hide");
     }
 };
 
